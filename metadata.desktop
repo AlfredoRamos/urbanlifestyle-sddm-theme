@@ -1,0 +1,16 @@
+[SddmGreeterTheme]
+Name=Urban LifeStyle
+Description=Urban LifeStyle Theme
+Author=Alfredo Ramos
+Copyright=(c) 2015, Alfredo Ramos
+License=GPLv3
+Type=sddm-theme
+Version=0.1
+Website=https://github.com/AlfredoRamos/sddm-urbanlifestyle-theme
+Screenshot=screenshot.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=alfredo.ramos@yandex.com
+Theme-Id=urbanlifestyle
+Theme-API=2.0
