@@ -1,6 +1,6 @@
 About
 =====
-Urban LifeStyle SDDM Theme v0.1 is licensed under [GNU GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt).
+Urban LifeStyle SDDM Theme is licensed under [GNU GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt).
 
 Background image "Urban LifeStyle" by [snyp][1] (a.k.a "r0pyns") was taken from [anime-pictures.net][2]
 

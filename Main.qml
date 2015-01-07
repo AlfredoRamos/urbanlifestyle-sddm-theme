@@ -31,18 +31,19 @@ Rectangle {
 		target: sddm
 
 		onLoginSucceeded: {
-			errorMessage.color = "steelblue"
+			errorMessage.color = "#005398"
 			errorMessage.text = textConstants.loginSucceeded
 		}
 
 		onLoginFailed: {
-			errorMessage.color = "red"
+			errorMessage.color = "#b00000"
 			errorMessage.text = textConstants.loginFailed
 		}
 	}
 
 	Repeater {
 		model: screenModel
+
 		Background {
 			x: geometry.x
 			y: geometry.y
@@ -51,6 +52,7 @@ Rectangle {
 			height: geometry.height
 			source: config.background
 			fillMode: Image.PreserveAspectFit
+
 			onStatusChanged: {
 				if (status == Image.Error && source != config.defaultBackground) {
 					source = config.defaultBackground
@@ -73,11 +75,11 @@ Rectangle {
 			anchors.top: parent.top
 			anchors.leftMargin: 60
 			anchors.topMargin: 60
-			width: Math.max(310, mainColumn.implicitWidth + 10)
-			height: Math.max(310, mainColumn.implicitHeight + 10)
+			width: Math.max(320, mainColumn.implicitWidth + 10)
+			height: Math.max(320, mainColumn.implicitHeight + 10)
 			border.color: "#ababab"
 			border.width: 1
-			radius: 7
+			radius: 6
 
 			Column {
 				id: mainColumn
@@ -87,23 +89,25 @@ Rectangle {
 				Text {
 					anchors.horizontalCenter: parent.horizontalCenter
 					verticalAlignment: Text.AlignVCenter
+					horizontalAlignment: Text.AlignHCenter
 					width: parent.width
 					height: text.implicitHeight
-					color: "black"
-					text: textConstants.welcomeText.arg(sddm.hostName)
+					color: "#333"
+					text: sddm.hostName
 					wrapMode: Text.WordWrap
 					font.pixelSize: 24
 					elide: Text.ElideRight
-					horizontalAlignment: Text.AlignHCenter
 				}
 
 				Column {
 					width: parent.width
 					spacing: 4
+
 					Text {
 						id: lblName
 						width: parent.width
 						text: textConstants.userName
+						color: "#555"
 						font.bold: true
 						font.pixelSize: 12
 					}
@@ -114,6 +118,9 @@ Rectangle {
 						height: 30
 						text: userModel.lastUser
 						font.pixelSize: 14
+						color: "#99ffffff" /* ARGB */
+						focusColor: "#69d6ac"
+						hoverColor: "#69d6ac"
 
 						KeyNavigation.backtab: rebootButton
 						KeyNavigation.tab: password
@@ -130,10 +137,12 @@ Rectangle {
 				Column {
 					width: parent.width
 					spacing: 4
+
 					Text {
 						id: lblPassword
 						width: parent.width
 						text: textConstants.password
+						color: "#555"
 						font.bold: true
 						font.pixelSize: 12
 					}
@@ -143,6 +152,9 @@ Rectangle {
 						width: parent.width
 						height: 30
 						font.pixelSize: 14
+						color: "#99ffffff" /* ARGB */
+						focusColor: "#ebaf1d"
+						hoverColor: "#ebaf1d"
 						tooltipBG: "lightgrey"
 
 						KeyNavigation.backtab: name
@@ -173,6 +185,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.session
 							wrapMode: TextEdit.WordWrap
+							color: "#555"
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -182,6 +195,9 @@ Rectangle {
 							width: parent.width
 							height: 30
 							font.pixelSize: 14
+							color: "#99ffffff" /* ARGB */
+							focusColor: "#85c92d"
+							hoverColor: "#85c92d"
 
 							arrowIcon: "angle-down.png"
 
@@ -204,6 +220,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.layout
 							wrapMode: TextEdit.WordWrap
+							color: "#555"
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -213,6 +230,9 @@ Rectangle {
 							width: parent.width
 							height: 30
 							font.pixelSize: 14
+							color: "#99ffffff" /* ARGB */
+							focusColor: "#31d8de"
+							hoverColor: "#31d8de"
 
 							arrowIcon: "angle-down.png"
 
@@ -224,10 +244,12 @@ Rectangle {
 
 				Column {
 					width: parent.width
+
 					Text {
 						id: errorMessage
 						anchors.horizontalCenter: parent.horizontalCenter
 						text: textConstants.prompt
+						color: "#555"
 						font.pixelSize: 10
 					}
 				}
@@ -236,6 +258,7 @@ Rectangle {
 					spacing: 4
 					anchors.horizontalCenter: parent.horizontalCenter
 					property int btnWidth: Math.max( loginButton.implicitWidth, shutdownButton.implicitWidth, rebootButton.implicitWidth, 80) + 8
+
 					Button {
 						id: loginButton
 						text: textConstants.login
