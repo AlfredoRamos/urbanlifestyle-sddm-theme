@@ -93,9 +93,10 @@ Rectangle {
 					width: parent.width
 					height: text.implicitHeight
 					color: "#333"
-					text: sddm.hostName
+					text: textConstants.welcomeText.arg(sddm.hostName)
 					wrapMode: Text.WordWrap
-					font.pixelSize: 24
+					font.pixelSize: 18
+					font.bold: true
 					elide: Text.ElideRight
 				}
 
