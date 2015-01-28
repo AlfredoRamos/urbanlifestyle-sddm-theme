@@ -6,7 +6,7 @@ Background image "Urban LifeStyle" by [snyp](http://r0pyns.deviantart.com/) (a.k
 
 Preview
 ======
-![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle.png)
+![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/urbanlifestyle.png)
 
 Install
 =====
