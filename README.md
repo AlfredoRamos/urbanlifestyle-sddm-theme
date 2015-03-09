@@ -1,20 +1,16 @@
-About
-=====
+# About
 Urban LifeStyle SDDM Theme is licensed under [GNU GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt).
 
 Background image "Urban LifeStyle" by [snyp](http://r0pyns.deviantart.com/) (a.k.a "r0pyns") was taken from [anime-pictures.net](http://anime-pictures.net/pictures/view_post/100739)
 
-Preview
-======
+# Preview
 ![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/urbanlifestyle.png)
 
-Install
-=====
-
-**Arch Linux** (using Yaourt)
+# Install
+**Arch Linux** (using [pacaur](https://aur.archlinux.org/packages/pacaur/))
 
 ```bash
-yaourt -S sddm-urbanlifestyle-theme
+pacaur -Sa sddm-urbanlifestyle-theme
 ```
 ___
 **Other GNU/Linux distros**
@@ -22,8 +18,7 @@ ___
 * Decompress the *.zip/*.tar.gz file.
 * Copy the ```urbanlifestyle```folder to your SDDM theme directory, by default ```/usr/share/sddm/themes```.
 
-Configuration
-================
+# Configuration
 * Open up your ```/etc/sddm.conf``` file and set ```urbanlifestyle``` as your current theme.
 
 ```bash
