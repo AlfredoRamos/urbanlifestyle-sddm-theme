@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import QtQuick 2.0
+import QtQuick 2.3
 import SddmComponents 2.0
 
 Rectangle {
@@ -38,6 +38,8 @@ Rectangle {
 		onLoginFailed: {
 			errorMessage.color = "#b00000"
 			errorMessage.text = textConstants.loginFailed
+			password.text = ""
+			password.focus = true
 		}
 	}
 
@@ -200,7 +202,7 @@ Rectangle {
 							focusColor: "#85c92d"
 							hoverColor: "#85c92d"
 
-							arrowIcon: "angle-down.png"
+							arrowIcon: "resources/images/angle-down.png"
 
 							model: sessionModel
 							index: sessionModel.lastIndex
@@ -235,7 +237,7 @@ Rectangle {
 							focusColor: "#31d8de"
 							hoverColor: "#31d8de"
 
-							arrowIcon: "angle-down.png"
+							arrowIcon: "resources/images/angle-down.png"
 
 							KeyNavigation.backtab: session
 							KeyNavigation.tab: loginButton
