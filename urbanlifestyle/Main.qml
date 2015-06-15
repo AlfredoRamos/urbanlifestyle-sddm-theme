@@ -50,13 +50,14 @@ Rectangle {
 			x: geometry.x
 			y: geometry.y
 			anchors.fill: parent
+			anchors.centerIn: parent
 			width: geometry.width
 			height: geometry.height
 			source: config.background
 			fillMode: Image.PreserveAspectFit
 
 			onStatusChanged: {
-				if (status == Image.Error && source != config.defaultBackground) {
+				if (status == Image.Error && source !== config.defaultBackground) {
 					source = config.defaultBackground
 				}
 			}
@@ -72,13 +73,13 @@ Rectangle {
 		color: "transparent"
 
 		Rectangle {
-			color: "transparent"
+			color: parent.color
 			anchors.left: parent.left
 			anchors.top: parent.top
-			anchors.leftMargin: 60
-			anchors.topMargin: 60
+			anchors.leftMargin: 70
+			anchors.topMargin: 70
 			width: Math.max(320, mainColumn.implicitWidth + 10)
-			height: Math.max(320, mainColumn.implicitHeight + 10)
+			height: Math.max(295, mainColumn.implicitHeight + 10)
 			border.color: "#ababab"
 			border.width: 1
 			radius: 6
@@ -102,78 +103,117 @@ Rectangle {
 					elide: Text.ElideRight
 				}
 
-				Column {
+				Row {
 					width: parent.width
 					spacing: 4
 
-					Text {
-						id: lblName
-						width: parent.width
-						text: textConstants.userName
-						color: "#555"
-						font.bold: true
-						font.pixelSize: 12
-					}
+					Column {
+						width: 90
+						height: 90
 
-					TextBox {
-						id: name
-						width: parent.width
-						height: 30
-						text: userModel.lastUser
-						font.pixelSize: 14
-						color: "#99ffffff" /* ARGB */
-						focusColor: "#69d6ac"
-						hoverColor: "#69d6ac"
+						Image {
+							id: avatar
+							smooth: true
+							fillMode: Image.PreserveAspectFit
+							asynchronous: true
+							width: parent.width
+							height: parent.height
+							sourceSize.width: parent.width
+							sourceSize.height: parent.height
+							source: config.avatarSource.arg(avatar.userName)
+							property string userName: userModel.lastUser
 
-						KeyNavigation.backtab: rebootButton
-						KeyNavigation.tab: password
-
-						Keys.onPressed: {
-							if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-								sddm.login(name.text, password.text, session.index)
-								event.accepted = true
+							onStatusChanged: {
+								if (avatar.status == Image.Error) {
+									avatar.userName = "default"
+								}
 							}
 						}
 					}
-				}
 
-				Column {
-					width: parent.width
-					spacing: 4
+					Column {
+						width: parent.width - avatar.width
 
-					Text {
-						id: lblPassword
-						width: parent.width
-						text: textConstants.password
-						color: "#555"
-						font.bold: true
-						font.pixelSize: 12
-					}
+						Column {
+							width: parent.width
+							spacing: parent.spacing
 
-					PasswordBox {
-						id: password
-						width: parent.width
-						height: 30
-						font.pixelSize: 14
-						color: "#99ffffff" /* ARGB */
-						focusColor: "#ebaf1d"
-						hoverColor: "#ebaf1d"
-						tooltipBG: "lightgrey"
+							Text {
+								id: lblName
+								width: parent.width
+								text: textConstants.userName
+								color: "#555"
+								font.bold: true
+								font.pixelSize: 12
+							}
 
-						KeyNavigation.backtab: name
-						KeyNavigation.tab: session
+							TextBox {
+								id: name
+								width: parent.width
+								height: 30
+								text: userModel.lastUser
+								font.pixelSize: 14
+								color: "#99ffffff" /* ARGB */
+								focusColor: "#69d6ac"
+								hoverColor: "#69d6ac"
 
-						Keys.onPressed: {
-							if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-								sddm.login(name.text, password.text, session.index)
-								event.accepted = true
+								KeyNavigation.backtab: rebootButton
+								KeyNavigation.tab: password
+
+								Keys.onPressed: {
+									if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+										sddm.login(name.text, password.text, session.index)
+										event.accepted = true
+									}
+								}
+
+								Keys.onReleased: {
+									if (name.text != "") {
+										avatar.userName = name.text
+									}
+								}
+							}
+						}
+
+						Column {
+							width: parent.width
+							spacing: parent.spacing
+
+							Text {
+								id: lblPassword
+								width: parent.width
+								text: textConstants.password
+								color: "#555"
+								font.bold: true
+								font.pixelSize: 12
+							}
+
+							PasswordBox {
+								id: password
+								width: parent.width
+								height: 30
+								font.pixelSize: 14
+								color: "#99ffffff" /* ARGB */
+								focusColor: "#ebaf1d"
+								hoverColor: "#ebaf1d"
+								tooltipBG: "lightgrey"
+
+								KeyNavigation.backtab: name
+								KeyNavigation.tab: session
+
+								Keys.onPressed: {
+									if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+										sddm.login(name.text, password.text, session.index)
+										event.accepted = true
+									}
+								}
 							}
 						}
 					}
 				}
 
 				Row {
-					spacing: 4
+					spacing: 2
 					width: parent.width / 2
 					z: 100
 
@@ -202,7 +242,7 @@ Rectangle {
 							focusColor: "#85c92d"
 							hoverColor: "#85c92d"
 
-							arrowIcon: "resources/images/angle-down.png"
+							arrowIcon: config.angleDown
 
 							model: sessionModel
 							index: sessionModel.lastIndex
@@ -237,7 +277,7 @@ Rectangle {
 							focusColor: "#31d8de"
 							hoverColor: "#31d8de"
 
-							arrowIcon: "resources/images/angle-down.png"
+							arrowIcon: config.angleDown
 
 							KeyNavigation.backtab: session
 							KeyNavigation.tab: loginButton
@@ -247,13 +287,14 @@ Rectangle {
 
 				Column {
 					width: parent.width
+					spacing: 4
 
 					Text {
 						id: errorMessage
 						anchors.horizontalCenter: parent.horizontalCenter
 						text: textConstants.prompt
 						color: "#555"
-						font.pixelSize: 10
+						font.pixelSize: 11
 					}
 				}
 
@@ -306,9 +347,10 @@ Rectangle {
 	}
 
 	Component.onCompleted: {
-		if (name.text == "")
+		if (name.text == "") {
 			name.focus = true
-		else
+		} else {
 			password.focus = true
+		}
 	}
 }
