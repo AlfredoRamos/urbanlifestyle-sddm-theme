@@ -120,12 +120,14 @@ Rectangle {
 							height: parent.height
 							sourceSize.width: parent.width
 							sourceSize.height: parent.height
-							source: config.avatarSource.arg(avatar.userName)
+							source: imagePath.arg(userName)
+							property string imagePath: config.avatarHomeSource
 							property string userName: userModel.lastUser
 
 							onStatusChanged: {
-								if (avatar.status == Image.Error) {
-									avatar.userName = "default"
+								if (status == Image.Error) {
+									imagePath = config.avatarSystemSource
+									userName = "default"
 								}
 							}
 						}
@@ -168,7 +170,8 @@ Rectangle {
 								}
 
 								Keys.onReleased: {
-									if (name.text != "") {
+									if (text !== "") {
+										avatar.imagePath = config.avatarHomeSource
 										avatar.userName = name.text
 									}
 								}

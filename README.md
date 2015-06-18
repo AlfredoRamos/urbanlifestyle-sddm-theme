@@ -27,4 +27,5 @@ ___
 Current=urbanlifestyle
 ```
 
-The image size should be at least 90x90 px. To change your avatar image, please refer to the Arch wiki: [[SDDM] Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar).
+To show your avatar the image must be in your ```$HOME``` directory named ```.face.icon``` and its size should be at least 90x90 px.
+For more information, refer to the Arch wiki: [[SDDM] Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar).
