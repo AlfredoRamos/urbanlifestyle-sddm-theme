@@ -37,6 +37,7 @@ Rectangle {
 
 		onLoginFailed: {
 			errorMessage.color = "#b00000"
+			errorMessage.font.bold = true
 			errorMessage.text = textConstants.loginFailed
 			password.text = ""
 			password.focus = true
@@ -113,21 +114,19 @@ Rectangle {
 
 						Image {
 							id: avatar
-							smooth: true
-							fillMode: Image.PreserveAspectFit
-							asynchronous: true
 							width: parent.width
 							height: parent.height
 							sourceSize.width: parent.width
 							sourceSize.height: parent.height
-							source: imagePath.arg(userName)
-							property string imagePath: config.avatarHomeSource
-							property string userName: userModel.lastUser
+							clip: true
+							smooth: true
+							asynchronous: true
+							fillMode: Image.PreserveAspectFit
+							source: config.avatarSource.arg(userModel.lastUser)
 
 							onStatusChanged: {
 								if (status == Image.Error) {
-									imagePath = config.avatarSystemSource
-									userName = "default"
+									source = config.avatarSource.arg("default")
 								}
 							}
 						}
@@ -170,9 +169,8 @@ Rectangle {
 								}
 
 								Keys.onReleased: {
-									if (text !== "") {
-										avatar.imagePath = config.avatarHomeSource
-										avatar.userName = name.text
+									if (name.text != "") {
+										avatar.source = config.avatarSource.arg(name.text)
 									}
 								}
 							}

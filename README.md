@@ -7,7 +7,7 @@ Background image "Urban LifeStyle" by [snyp](http://r0pyns.deviantart.com/) (r0p
 ![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/resources/images/urbanlifestyle.jpg)
 
 ## Install
-**Arch Linux** (using [pacaur](https://aur.archlinux.org/packages/pacaur/))
+**Arch Linux** (using [pacaur](https://wiki.archlinux.org/index.php/Pacaur))
 
 ```bash
 pacaur -Sa sddm-urbanlifestyle-theme
@@ -27,5 +27,4 @@ ___
 Current=urbanlifestyle
 ```
 
-To show your avatar the image must be in your ```$HOME``` directory named ```.face.icon``` and its size should be at least 90x90 px.
-For more information, refer to the Arch wiki: [[SDDM] Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar).
+The avatar image size should be at least 90x90 px. For more information, refer to the Arch wiki: [[SDDM] Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar).
