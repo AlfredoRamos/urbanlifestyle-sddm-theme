@@ -4,7 +4,7 @@ Urban LifeStyle SDDM Theme is licensed under [GNU GPL-3.0+](https://www.gnu.org/
 Background image "Urban LifeStyle" by [snyp](http://r0pyns.deviantart.com/) (r0pyns) was taken from [anime-pictures.net](https://anime-pictures.net/pictures/view_post/100739)
 
 ### Preview
-![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/resources/images/urbanlifestyle.jpg)
+![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/images/urbanlifestyle.jpg)
 
 ### Install
 **Arch Linux** (using [pacaur](https://wiki.archlinux.org/index.php/Pacaur))
@@ -29,3 +29,6 @@ Current=urbanlifestyle
 
 The avatar image size should be at least 90x90 px. For more information, refer to the Arch wiki.
 - [[SDDM] Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar).
+
+### Known issues
+- Password field has no focus (see sddm/sddm#501). To fix this issue you will need to patch the theme (see [password_focus_fix.patch](https://aur.archlinux.org/cgit/aur.git/plain/password_focus_fix.patch?h=sddm-urbanlifestyle-theme)). If you're running Arch Linux and installed the theme from the [AUR](https://aur.archlinux.org/), the theme has been already patched.

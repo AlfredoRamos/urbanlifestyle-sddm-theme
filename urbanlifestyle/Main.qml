@@ -74,6 +74,7 @@ Rectangle {
 		color: "transparent"
 
 		Rectangle {
+			id: mainBox
 			color: parent.color
 			anchors.left: parent.left
 			anchors.top: parent.top
@@ -302,12 +303,12 @@ Rectangle {
 				Row {
 					spacing: 4
 					anchors.horizontalCenter: parent.horizontalCenter
-					property int btnWidth: Math.max( loginButton.implicitWidth, shutdownButton.implicitWidth, rebootButton.implicitWidth, 80) + 8
+					property int buttonWidth: Math.max(loginButton.implicitWidth, shutdownButton.implicitWidth, rebootButton.implicitWidth, 80) + 8
 
 					Button {
 						id: loginButton
 						text: textConstants.login
-						width: parent.btnWidth
+						width: parent.buttonWidth
 						color: "#08c"
 						activeColor: "#08c"
 
@@ -320,7 +321,7 @@ Rectangle {
 					Button {
 						id: shutdownButton
 						text: textConstants.shutdown
-						width: parent.btnWidth
+						width: parent.buttonWidth
 						color: "#d11"
 						activeColor: "#d11"
 
@@ -333,7 +334,7 @@ Rectangle {
 					Button {
 						id: rebootButton
 						text: textConstants.reboot
-						width: parent.btnWidth
+						width: parent.buttonWidth
 						color: "#ff4f14"
 						activeColor: "#ff4f14"
 
@@ -342,6 +343,26 @@ Rectangle {
 						KeyNavigation.backtab: shutdownButton
 						KeyNavigation.tab: name
 					}
+				}
+			}
+
+			Rectangle {
+				id: clockContainer
+				width: mainBox.width
+				color: "transparent"
+				anchors.fill: mainBox
+				anchors.horizontalCenter: mainBox.horizontalCenter
+				anchors.top: mainBox.anchors.bottom
+				anchors.topMargin: mainBox.height + mainBox.anchors.topMargin
+
+				Clock {
+					id: clock
+					anchors.centerIn: parent
+					color: "#555"
+					timeFont.pointSize: 12
+					dateFont.pointSize: 12
+					timeFont.bold: true
+					dateFont.bold: true
 				}
 			}
 		}
