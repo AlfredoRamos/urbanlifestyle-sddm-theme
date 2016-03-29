@@ -13,4 +13,4 @@ ConfigFile=theme.conf
 TranslationsDirectory=translations
 Email=alfredo.ramos@yandex.com
 Theme-Id=urbanlifestyle
-Theme-API=2.3
+Theme-API=2.5
