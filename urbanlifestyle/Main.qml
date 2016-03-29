@@ -155,6 +155,7 @@ Rectangle {
 								height: 30
 								text: userModel.lastUser
 								font.pixelSize: 14
+								font.bold: false
 								color: "#99ffffff" /* ARGB */
 								focusColor: "#69d6ac"
 								hoverColor: "#69d6ac"
@@ -195,6 +196,7 @@ Rectangle {
 								width: parent.width
 								height: 30
 								font.pixelSize: 14
+								font.bold: false
 								color: "#99ffffff" /* ARGB */
 								focusColor: "#ebaf1d"
 								hoverColor: "#ebaf1d"
@@ -240,6 +242,7 @@ Rectangle {
 							width: parent.width
 							height: 30
 							font.pixelSize: 14
+							font.bold: false
 							color: "#99ffffff" /* ARGB */
 							focusColor: "#85c92d"
 							hoverColor: "#85c92d"
@@ -275,6 +278,7 @@ Rectangle {
 							width: parent.width
 							height: 30
 							font.pixelSize: 14
+							font.bold: false
 							color: "#99ffffff" /* ARGB */
 							focusColor: "#31d8de"
 							hoverColor: "#31d8de"
