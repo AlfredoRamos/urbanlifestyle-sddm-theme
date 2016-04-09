@@ -100,7 +100,7 @@ Rectangle {
 					color: "#333"
 					text: textConstants.welcomeText.arg(sddm.hostName)
 					wrapMode: Text.WordWrap
-					font.pixelSize: 18
+					font.pixelSize: 15
 					font.bold: true
 					elide: Text.ElideRight
 				}
@@ -156,7 +156,7 @@ Rectangle {
 								text: userModel.lastUser
 								font.pixelSize: 14
 								font.bold: false
-								color: "#99ffffff" /* ARGB */
+								color: "#99ffffff" // ARGB
 								focusColor: "#69d6ac"
 								hoverColor: "#69d6ac"
 
@@ -197,7 +197,7 @@ Rectangle {
 								height: 30
 								font.pixelSize: 14
 								font.bold: false
-								color: "#99ffffff" /* ARGB */
+								color: "#99ffffff" // ARGB
 								focusColor: "#ebaf1d"
 								hoverColor: "#ebaf1d"
 								tooltipBG: "lightgrey"
@@ -243,7 +243,7 @@ Rectangle {
 							height: 30
 							font.pixelSize: 14
 							font.bold: false
-							color: "#99ffffff" /* ARGB */
+							color: "#99ffffff" // ARGB
 							focusColor: "#85c92d"
 							hoverColor: "#85c92d"
 
@@ -279,7 +279,7 @@ Rectangle {
 							height: 30
 							font.pixelSize: 14
 							font.bold: false
-							color: "#99ffffff" /* ARGB */
+							color: "#99ffffff" // ARGB
 							focusColor: "#31d8de"
 							hoverColor: "#31d8de"
 
@@ -362,9 +362,9 @@ Rectangle {
 				Clock {
 					id: clock
 					anchors.centerIn: parent
-					color: "#555"
-					timeFont.pointSize: 12
-					dateFont.pointSize: 12
+					color: "#cc555555" // ARGB
+					timeFont.pixelSize: 13
+					dateFont.pixelSize: 13
 					timeFont.bold: true
 					dateFont.bold: true
 				}
