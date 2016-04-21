@@ -19,6 +19,8 @@
 import QtQuick 2.5
 import SddmComponents 2.0
 
+import './components'
+
 Rectangle {
 	width: 640
 	height: 480
@@ -89,7 +91,7 @@ Rectangle {
 			Column {
 				id: mainColumn
 				anchors.centerIn: parent
-				spacing: 12
+				spacing: 10
 
 				Text {
 					anchors.horizontalCenter: parent.horizontalCenter
@@ -107,7 +109,7 @@ Rectangle {
 
 				Row {
 					width: parent.width
-					spacing: 4
+					spacing: 5
 
 					Column {
 						width: 90
@@ -134,7 +136,7 @@ Rectangle {
 					}
 
 					Column {
-						width: parent.width - avatar.width
+						width: (parent.width - avatar.width) - parent.spacing
 
 						Column {
 							width: parent.width
@@ -293,7 +295,7 @@ Rectangle {
 
 				Column {
 					width: parent.width
-					spacing: 4
+					spacing: 3
 
 					Text {
 						id: errorMessage
@@ -305,7 +307,7 @@ Rectangle {
 				}
 
 				Row {
-					spacing: 4
+					spacing: 3
 					anchors.horizontalCenter: parent.horizontalCenter
 					property int buttonWidth: Math.max(loginButton.implicitWidth, shutdownButton.implicitWidth, rebootButton.implicitWidth, 80) + 8
 
@@ -353,20 +355,18 @@ Rectangle {
 			Rectangle {
 				id: clockContainer
 				width: mainBox.width
+				height: clock.height
 				color: "transparent"
-				anchors.fill: mainBox
 				anchors.horizontalCenter: mainBox.horizontalCenter
-				anchors.top: mainBox.anchors.bottom
-				anchors.topMargin: mainBox.height + mainBox.anchors.topMargin
+				anchors.top: mainBox.bottom
+				anchors.topMargin: mainColumn.spacing
 
-				Clock {
+				CustomClock {
 					id: clock
 					anchors.centerIn: parent
 					color: "#cc555555" // ARGB
-					timeFont.pixelSize: 13
-					dateFont.pixelSize: 13
-					timeFont.bold: true
-					dateFont.bold: true
+					timeFormat: config.timeFormat
+					dateFormat: config.dateFormat
 				}
 			}
 		}
