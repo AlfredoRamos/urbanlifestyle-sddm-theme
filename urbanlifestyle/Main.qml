@@ -24,6 +24,7 @@ import './components'
 Rectangle {
 	width: 640
 	height: 480
+	color: config.backgroundColor
 
 	TextConstants {
 		id: textConstants
@@ -56,7 +57,7 @@ Rectangle {
 			anchors.centerIn: parent
 			width: geometry.width
 			height: geometry.height
-			source: config.background
+			source: config.backgroundImage
 			fillMode: Image.PreserveAspectFit
 
 			onStatusChanged: {
@@ -146,7 +147,7 @@ Rectangle {
 								id: lblName
 								width: parent.width
 								text: textConstants.userName
-								color: "#555"
+								color: config.textColor
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -188,7 +189,7 @@ Rectangle {
 								id: lblPassword
 								width: parent.width
 								text: textConstants.password
-								color: "#555"
+								color: config.textColor
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -234,7 +235,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.session
 							wrapMode: TextEdit.WordWrap
-							color: "#555"
+							color: config.textColor
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -270,7 +271,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.layout
 							wrapMode: TextEdit.WordWrap
-							color: "#555"
+							color: config.textColor
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -301,7 +302,7 @@ Rectangle {
 						id: errorMessage
 						anchors.horizontalCenter: parent.horizontalCenter
 						text: textConstants.prompt
-						color: "#555"
+						color: config.textColor
 						font.pixelSize: 11
 					}
 				}
@@ -367,6 +368,8 @@ Rectangle {
 					color: "#cc555555" // ARGB
 					timeFormat: config.timeFormat
 					dateFormat: config.dateFormat
+					timeFont.pixelSize: parseInt(config.timeFontSize)
+					dateFont.pixelSize: parseInt(config.dateFontSize)
 				}
 			}
 		}
