@@ -36,10 +36,10 @@ Rectangle {
 		target: sddm
 
 		onLoginFailed: {
-			errorMessage.color = "#b00000"
+			errorMessage.color = '#b00000'
 			errorMessage.font.bold = true
 			errorMessage.text = textConstants.loginFailed
-			password.text = ""
+			password.text = ''
 			password.focus = true
 		}
 	}
@@ -66,18 +66,18 @@ Rectangle {
 		y: container.geometry.y
 		width: container.geometry.width
 		height: container.geometry.height
-		color: "transparent"
+		color: 'transparent'
 
 		Rectangle {
 			id: mainBox
-			color: "#22ffffff" //parent.color
+			color: parent.color
 			anchors.left: parent.left
 			anchors.top: parent.top
 			anchors.leftMargin: 70
 			anchors.topMargin: 70
 			width: Math.max(320, mainColumn.implicitWidth + 10)
 			height: Math.max(295, mainColumn.implicitHeight + 10)
-			border.color: "#ababab"
+			border.color: '#ababab'
 			border.width: 1
 			radius: 5
 
@@ -92,7 +92,7 @@ Rectangle {
 					horizontalAlignment: Text.AlignHCenter
 					width: parent.width
 					height: text.implicitHeight
-					color: "#333"
+					color: '#333'
 					text: textConstants.welcomeText.arg(sddm.hostName)
 					wrapMode: Text.WordWrap
 					font.pixelSize: 15
@@ -122,7 +122,7 @@ Rectangle {
 
 							onStatusChanged: {
 								if (status === Image.Error) {
-									source = config.avatarSource.arg("default")
+									source = config.avatarSource.arg('default')
 								}
 							}
 
@@ -140,7 +140,7 @@ Rectangle {
 								id: lblName
 								width: parent.width
 								text: textConstants.userName
-								color: "#555"
+								color: '#555'
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -152,9 +152,9 @@ Rectangle {
 								text: userModel.lastUser
 								font.pixelSize: 14
 								font.bold: false
-								color: "#99ffffff" // ARGB
-								focusColor: "#69d6ac"
-								hoverColor: "#69d6ac"
+								color: '#99ffffff' // ARGB
+								focusColor: '#69d6ac'
+								hoverColor: '#69d6ac'
 
 								KeyNavigation.backtab: rebootButton
 								KeyNavigation.tab: password
@@ -167,7 +167,7 @@ Rectangle {
 								}
 
 								Keys.onReleased: {
-									if (name.text !== "") {
+									if (name.text !== '') {
 										avatar.source = config.avatarSource.arg(name.text)
 									}
 								}
@@ -182,7 +182,7 @@ Rectangle {
 								id: lblPassword
 								width: parent.width
 								text: textConstants.password
-								color: "#555"
+								color: '#555'
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -193,10 +193,10 @@ Rectangle {
 								height: 30
 								font.pixelSize: 14
 								font.bold: false
-								color: "#99ffffff" // ARGB
-								focusColor: "#ebaf1d"
-								hoverColor: "#ebaf1d"
-								tooltipBG: "lightgrey"
+								color: '#99ffffff' // ARGB
+								focusColor: '#ebaf1d'
+								hoverColor: '#ebaf1d'
+								tooltipBG: 'lightgrey'
 
 								KeyNavigation.backtab: name
 								KeyNavigation.tab: session
@@ -228,7 +228,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.session
 							wrapMode: TextEdit.WordWrap
-							color: "#555"
+							color: '#555'
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -239,9 +239,9 @@ Rectangle {
 							height: 30
 							font.pixelSize: 14
 							font.bold: false
-							color: "#99ffffff" // ARGB
-							focusColor: "#85c92d"
-							hoverColor: "#85c92d"
+							color: '#99ffffff' // ARGB
+							focusColor: '#85c92d'
+							hoverColor: '#85c92d'
 
 							arrowIcon: config.angleDown
 
@@ -264,7 +264,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.layout
 							wrapMode: TextEdit.WordWrap
-							color: "#555"
+							color: '#555'
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -275,9 +275,9 @@ Rectangle {
 							height: 30
 							font.pixelSize: 14
 							font.bold: false
-							color: "#99ffffff" // ARGB
-							focusColor: "#31d8de"
-							hoverColor: "#31d8de"
+							color: '#99ffffff' // ARGB
+							focusColor: '#31d8de'
+							hoverColor: '#31d8de'
 
 							arrowIcon: config.angleDown
 
@@ -295,7 +295,7 @@ Rectangle {
 						id: errorMessage
 						anchors.horizontalCenter: parent.horizontalCenter
 						text: textConstants.prompt
-						color: "#555"
+						color: '#555'
 						font.pixelSize: 11
 					}
 				}
@@ -309,8 +309,8 @@ Rectangle {
 						id: loginButton
 						text: textConstants.login
 						width: parent.buttonWidth
-						color: "#08c"
-						activeColor: "#08c"
+						color: '#08c'
+						activeColor: '#08c'
 
 						onClicked: sddm.login(name.text, password.text, session.index)
 
@@ -322,8 +322,8 @@ Rectangle {
 						id: shutdownButton
 						text: textConstants.shutdown
 						width: parent.buttonWidth
-						color: "#d11"
-						activeColor: "#d11"
+						color: '#d11'
+						activeColor: '#d11'
 
 						onClicked: sddm.powerOff()
 
@@ -335,8 +335,8 @@ Rectangle {
 						id: rebootButton
 						text: textConstants.reboot
 						width: parent.buttonWidth
-						color: "#ff4f14"
-						activeColor: "#ff4f14"
+						color: '#ff4f14'
+						activeColor: '#ff4f14'
 
 						onClicked: sddm.reboot()
 
@@ -350,7 +350,7 @@ Rectangle {
 				id: clockContainer
 				width: mainBox.width
 				height: clock.height
-				color: "transparent"
+				color: 'transparent'
 				anchors.horizontalCenter: mainBox.horizontalCenter
 				anchors.top: mainBox.bottom
 				anchors.topMargin: mainColumn.spacing
@@ -358,7 +358,7 @@ Rectangle {
 				CustomClock {
 					id: clock
 					anchors.centerIn: parent
-					color: "#cc555555" // ARGB
+					color: '#cc555555' // ARGB
 					timeFormat: config.timeFormat
 					dateFormat: config.dateFormat
 					timeFont.pixelSize: parseInt(config.timeFontSize)
@@ -369,7 +369,7 @@ Rectangle {
 	}
 
 	Component.onCompleted: {
-		if (name.text === "") {
+		if (name.text === '') {
 			name.focus = true
 		} else {
 			password.focus = true
