@@ -22,8 +22,10 @@ import SddmComponents 2.0
 import './components'
 
 Rectangle {
-	width: 640
-	height: 480
+	id: container
+	property variant geometry: screenModel.geometry(screenModel.primary)
+	width: geometry.width
+	height: geometry.height
 	color: config.backgroundColor
 
 	TextConstants {
@@ -32,11 +34,6 @@ Rectangle {
 
 	Connections {
 		target: sddm
-
-		onLoginSucceeded: {
-			errorMessage.color = "#005398"
-			errorMessage.text = textConstants.loginSucceeded
-		}
 
 		onLoginFailed: {
 			errorMessage.color = "#b00000"
@@ -51,17 +48,13 @@ Rectangle {
 		model: screenModel
 
 		Background {
-			x: geometry.x
-			y: geometry.y
 			anchors.fill: parent
 			anchors.centerIn: parent
-			width: geometry.width
-			height: geometry.height
-			source: config.backgroundImage
-			fillMode: Image.PreserveAspectFit
+			source: config.background
+			fillMode: Image.PreserveAspectCrop
 
 			onStatusChanged: {
-				if (status == Image.Error && source !== config.defaultBackground) {
+				if (status === Image.Error && source !== config.defaultBackground) {
 					source = config.defaultBackground
 				}
 			}
@@ -69,16 +62,15 @@ Rectangle {
 	}
 
 	Rectangle {
-		property variant geometry: screenModel.geometry(screenModel.primary)
-		x: geometry.x
-		y: geometry.y
-		width: geometry.width
-		height: geometry.height
+		x: container.geometry.x
+		y: container.geometry.y
+		width: container.geometry.width
+		height: container.geometry.height
 		color: "transparent"
 
 		Rectangle {
 			id: mainBox
-			color: parent.color
+			color: "#22ffffff" //parent.color
 			anchors.left: parent.left
 			anchors.top: parent.top
 			anchors.leftMargin: 70
@@ -87,7 +79,7 @@ Rectangle {
 			height: Math.max(295, mainColumn.implicitHeight + 10)
 			border.color: "#ababab"
 			border.width: 1
-			radius: 6
+			radius: 5
 
 			Column {
 				id: mainColumn
@@ -129,10 +121,11 @@ Rectangle {
 							source: config.avatarSource.arg(userModel.lastUser)
 
 							onStatusChanged: {
-								if (status == Image.Error) {
+								if (status === Image.Error) {
 									source = config.avatarSource.arg("default")
 								}
 							}
+
 						}
 					}
 
@@ -147,7 +140,7 @@ Rectangle {
 								id: lblName
 								width: parent.width
 								text: textConstants.userName
-								color: config.textColor
+								color: "#555"
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -174,7 +167,7 @@ Rectangle {
 								}
 
 								Keys.onReleased: {
-									if (name.text != "") {
+									if (name.text !== "") {
 										avatar.source = config.avatarSource.arg(name.text)
 									}
 								}
@@ -189,7 +182,7 @@ Rectangle {
 								id: lblPassword
 								width: parent.width
 								text: textConstants.password
-								color: config.textColor
+								color: "#555"
 								font.bold: true
 								font.pixelSize: 12
 							}
@@ -235,7 +228,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.session
 							wrapMode: TextEdit.WordWrap
-							color: config.textColor
+							color: "#555"
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -271,7 +264,7 @@ Rectangle {
 							width: parent.width
 							text: textConstants.layout
 							wrapMode: TextEdit.WordWrap
-							color: config.textColor
+							color: "#555"
 							font.bold: true
 							font.pixelSize: 12
 						}
@@ -302,7 +295,7 @@ Rectangle {
 						id: errorMessage
 						anchors.horizontalCenter: parent.horizontalCenter
 						text: textConstants.prompt
-						color: config.textColor
+						color: "#555"
 						font.pixelSize: 11
 					}
 				}
@@ -376,7 +369,7 @@ Rectangle {
 	}
 
 	Component.onCompleted: {
-		if (name.text == "") {
+		if (name.text === "") {
 			name.focus = true
 		} else {
 			password.focus = true
