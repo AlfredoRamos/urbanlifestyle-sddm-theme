@@ -1,0 +1,4 @@
+* text=auto
+.gitignore export-ignore
+.gitattributes export-ignore
+*.md export-ignore
