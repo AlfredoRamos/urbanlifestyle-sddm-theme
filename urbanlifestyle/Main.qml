@@ -16,17 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-import QtQuick 2.5
+import QtQuick 2.6
 import SddmComponents 2.0
 
 import './components'
 
 Rectangle {
 	id: container
-	property variant geometry: screenModel.geometry(screenModel.primary)
-	width: geometry.width
-	height: geometry.height
+	width: 1024
+	height: 768
 	color: config.backgroundColor
+	property int minWidth: 300
+	property int minHeight: 280
 
 	TextConstants {
 		id: textConstants
@@ -36,281 +37,263 @@ Rectangle {
 		target: sddm
 
 		onLoginFailed: {
-			errorMessage.color = '#b00000'
-			errorMessage.font.bold = true
-			errorMessage.text = textConstants.loginFailed
+			message.color = '#b00000'
+			message.font.bold = true
+			message.text = textConstants.loginFailed
 			password.text = ''
 			password.focus = true
 		}
 	}
 
-	Repeater {
-		model: screenModel
+	Background {
+		anchors.fill: parent
+		anchors.centerIn: parent
+		source: config.background
+		fillMode: Image.PreserveAspectFit
 
-		Background {
-			anchors.fill: parent
-			anchors.centerIn: parent
-			source: config.background
-			fillMode: Image.PreserveAspectCrop
-
-			onStatusChanged: {
-				if (status === Image.Error && source !== config.defaultBackground) {
-					source = config.defaultBackground
-				}
+		onStatusChanged: {
+			if (status === Image.Error && source !== config.defaultBackground) {
+				source = config.defaultBackground
 			}
 		}
 	}
 
 	Rectangle {
-		x: container.geometry.x
-		y: container.geometry.y
-		width: container.geometry.width
-		height: container.geometry.height
+		id: loginBox
+		anchors.left: parent.left
+		anchors.top: parent.top
+		anchors.leftMargin: 70
+		anchors.topMargin: 70
 		color: 'transparent'
+		border.color: '#ababab'
+		border.width: 1
+		radius: 5
+		width: Math.max(container.minWidth + 10, mainColumn.implicitWidth + 30)
+		height: Math.min(container.minHeight + 10, mainColumn.implicitHeight + 30)
+		property int spacing: 5
 
-		Rectangle {
-			id: mainBox
-			color: parent.color
-			anchors.left: parent.left
-			anchors.top: parent.top
-			anchors.leftMargin: 70
-			anchors.topMargin: 70
-			width: Math.max(320, mainColumn.implicitWidth + 10)
-			height: Math.max(295, mainColumn.implicitHeight + 10)
-			border.color: '#ababab'
-			border.width: 1
-			radius: 5
+		Column {
+			id: mainColumn
+			anchors.centerIn: parent
+			spacing: parent.spacing * 2
 
+			// Welcome message
 			Column {
-				id: mainColumn
-				anchors.centerIn: parent
-				spacing: 10
+				width: parent.width
+				spacing: parent.spacing
 
 				Text {
 					anchors.horizontalCenter: parent.horizontalCenter
-					verticalAlignment: Text.AlignVCenter
-					horizontalAlignment: Text.AlignHCenter
-					width: parent.width
-					height: text.implicitHeight
-					color: '#333'
-					text: textConstants.welcomeText.arg(sddm.hostName)
+					height: Text.implicitHeight
 					wrapMode: Text.WordWrap
+					elide: Text.ElideRight
+					color: '#333'
 					font.pixelSize: 15
 					font.bold: true
-					elide: Text.ElideRight
+					text: textConstants.welcomeText.arg(sddm.hostName)
 				}
+			}
 
-				Row {
-					width: parent.width
-					spacing: 5
+			// Avatar, name and password
+			Row {
+				spacing: loginBox.spacing
 
-					Column {
-						width: 90
-						height: 90
+				// Avatar
+				Image {
+					id: avatar
+					width: 90
+					height: 90
+					sourceSize.width: width
+					sourceSize.height: height
+					clip: true
+					smooth: true
+					asynchronous: true
+					fillMode: Image.PreserveAspectFit
+					source: config.avatarSource.arg(userModel.lastUser)
 
-						Image {
-							id: avatar
-							width: parent.width
-							height: parent.height
-							sourceSize.width: parent.width
-							sourceSize.height: parent.height
-							clip: true
-							smooth: true
-							asynchronous: true
-							fillMode: Image.PreserveAspectFit
-							source: config.avatarSource.arg(userModel.lastUser)
-
-							onStatusChanged: {
-								if (status === Image.Error) {
-									source = config.avatarSource.arg('default')
-								}
-							}
-
-						}
-					}
-
-					Column {
-						width: (parent.width - avatar.width) - parent.spacing
-
-						Column {
-							width: parent.width
-							spacing: parent.spacing
-
-							Text {
-								id: lblName
-								width: parent.width
-								text: textConstants.userName
-								color: '#555'
-								font.bold: true
-								font.pixelSize: 12
-							}
-
-							TextBox {
-								id: name
-								width: parent.width
-								height: 30
-								text: userModel.lastUser
-								font.pixelSize: 14
-								font.bold: false
-								color: '#99ffffff' // ARGB
-								focusColor: '#69d6ac'
-								hoverColor: '#69d6ac'
-
-								KeyNavigation.backtab: rebootButton
-								KeyNavigation.tab: password
-
-								Keys.onPressed: {
-									if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-										sddm.login(name.text, password.text, session.index)
-										event.accepted = true
-									}
-								}
-
-								Keys.onReleased: {
-									if (name.text !== '') {
-										avatar.source = config.avatarSource.arg(name.text)
-									}
-								}
-							}
+					onStatusChanged: {
+						if (status === Image.Error) {
+							source = config.avatarSource.arg('default')
 						}
 
-						Column {
-							width: parent.width
-							spacing: parent.spacing
-
-							Text {
-								id: lblPassword
-								width: parent.width
-								text: textConstants.password
-								color: '#555'
-								font.bold: true
-								font.pixelSize: 12
-							}
-
-							PasswordBox {
-								id: password
-								width: parent.width
-								height: 30
-								font.pixelSize: 14
-								font.bold: false
-								color: '#99ffffff' // ARGB
-								focusColor: '#ebaf1d'
-								hoverColor: '#ebaf1d'
-								tooltipBG: 'lightgrey'
-
-								KeyNavigation.backtab: name
-								KeyNavigation.tab: session
-
-								Keys.onPressed: {
-									if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-										sddm.login(name.text, password.text, session.index)
-										event.accepted = true
-									}
-								}
-							}
-						}
 					}
 				}
 
-				Row {
-					spacing: 2
-					width: parent.width / 2
-					z: 100
-
-					Column {
-						z: 100
-						width: parent.width * 1.3
-						spacing: 4
-						anchors.bottom: parent.bottom
-
-						Text {
-							id: lblSession
-							width: parent.width
-							text: textConstants.session
-							wrapMode: TextEdit.WordWrap
-							color: '#555'
-							font.bold: true
-							font.pixelSize: 12
-						}
-
-						ComboBox {
-							id: session
-							width: parent.width
-							height: 30
-							font.pixelSize: 14
-							font.bold: false
-							color: '#99ffffff' // ARGB
-							focusColor: '#85c92d'
-							hoverColor: '#85c92d'
-
-							arrowIcon: config.angleDown
-
-							model: sessionModel
-							index: sessionModel.lastIndex
-
-							KeyNavigation.backtab: password
-							KeyNavigation.tab: layoutBox
-						}
-					}
-
-					Column {
-						z: 101
-						width: parent.width * 0.7
-						spacing: 4
-						anchors.bottom: parent.bottom
-
-						Text {
-							id: lblLayout
-							width: parent.width
-							text: textConstants.layout
-							wrapMode: TextEdit.WordWrap
-							color: '#555'
-							font.bold: true
-							font.pixelSize: 12
-						}
-
-						LayoutBox {
-							id: layoutBox
-							width: parent.width
-							height: 30
-							font.pixelSize: 14
-							font.bold: false
-							color: '#99ffffff' // ARGB
-							focusColor: '#31d8de'
-							hoverColor: '#31d8de'
-
-							arrowIcon: config.angleDown
-
-							KeyNavigation.backtab: session
-							KeyNavigation.tab: loginButton
-						}
-					}
-				}
-
+				// Name and password
 				Column {
-					width: parent.width
-					spacing: 3
+					width: (container.minWidth - avatar.width) - parent.spacing
+
+					// Name
+					Column {
+						width: parent.width
+						spacing: parent.spacing
+
+						Text {
+							width: parent.width
+							text: textConstants.userName
+							color: '#555'
+							font.bold: true
+							font.pixelSize: 12
+						}
+
+						TextBox {
+							id: name
+							width: parent.width
+							height: 30
+							text: userModel.lastUser
+							color: '#99ffffff' // ARGB
+							font.bold: false
+							font.pixelSize: 14
+							focusColor: '#69d6ac'
+							hoverColor: focusColor
+
+							KeyNavigation.backtab: rebootButton
+							KeyNavigation.tab: password
+
+							Keys.onPressed: {
+								if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+									sddm.login(name.text, password.text, session.index)
+									event.accepted = true
+								}
+							}
+
+							Keys.onReleased: {
+								if (name.text !== '') {
+									avatar.source = config.avatarSource.arg(name.text)
+								}
+							}
+						}
+					}
+
+					// Password
+					Column {
+						width: parent.width
+						spacing: parent.spacing
+
+						Text {
+							width: parent.width
+							text: textConstants.password
+							color: '#555'
+							font.bold: true
+							font.pixelSize: 12
+						}
+
+						PasswordBox {
+							id: password
+							width: parent.width
+							height: 30
+							color: '#99ffffff' // ARGB
+							font.bold: false
+							font.pixelSize: 14
+							focusColor: '#ebaf1d'
+							hoverColor: focusColor
+
+							KeyNavigation.backtab: name
+							KeyNavigation.tab: session
+
+							Keys.onPressed: {
+								if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+									sddm.login(name.text, password.text, session.index)
+									event.accepted = true
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Session and keyboard layout
+			Row {
+				spacing: loginBox.spacing
+				z: 100
+
+				// Session
+				Column {
+					width: (container.minWidth * 0.7) - (parent.spacing / 2)
+					spacing: parent.spacing
 
 					Text {
-						id: errorMessage
-						anchors.horizontalCenter: parent.horizontalCenter
-						text: textConstants.prompt
+						width: parent.width
+						text: textConstants.session
 						color: '#555'
-						font.pixelSize: 11
+						font.bold: true
+						font.pixelSize: 12
+					}
+
+					ComboBox {
+						id: session
+						width: parent.width
+						height: 30
+						color: '#99ffffff' // ARGB
+						font.bold: false
+						font.pixelSize: 14
+						focusColor: '#85c92d'
+						hoverColor: focusColor
+						arrowIcon: config.angleDown
+
+						model: sessionModel
+						index: sessionModel.lastIndex
 					}
 				}
 
-				Row {
-					spacing: 3
+				// Keyboard layout
+				Column {
+					width: (container.minWidth * 0.3) - (parent.spacing / 2)
+					spacing: parent.spacing
+
+					Text {
+						width: parent.width
+						text: textConstants.layout
+						color: '#555'
+						font.bold: true
+						font.pixelSize: 12
+					}
+
+					LayoutBox {
+						id: layoutBox
+						width: parent.width
+						height: 30
+						color: '#99ffffff' // ARGB
+						font.bold: false
+						font.pixelSize: 14
+						focusColor: '#31d8de'
+						hoverColor: focusColor
+						arrowIcon: config.angleDown
+					}
+
+				}
+			}
+
+			// Message
+			Column {
+				width: parent.width
+				spacing: parent.spacing
+
+				Text {
+					id: message
 					anchors.horizontalCenter: parent.horizontalCenter
-					property int buttonWidth: Math.max(loginButton.implicitWidth, shutdownButton.implicitWidth, rebootButton.implicitWidth, 80) + 8
+					text: textConstants.prompt
+					color: '#555'
+					font.pixelSize: 11
+				}
+			}
+
+			// Buttons
+			Column {
+				width: parent.width
+				spacing: parent.spacing
+
+				Row {
+					spacing: parent.spacing / 3
+					anchors.horizontalCenter: parent.horizontalCenter
+					property int buttonWidth: (parent.width / 3) - (spacing / 3)
 
 					Button {
 						id: loginButton
 						text: textConstants.login
 						width: parent.buttonWidth
 						color: '#08c'
-						activeColor: '#08c'
+						activeColor: color
 
 						onClicked: sddm.login(name.text, password.text, session.index)
 
@@ -323,7 +306,7 @@ Rectangle {
 						text: textConstants.shutdown
 						width: parent.buttonWidth
 						color: '#d11'
-						activeColor: '#d11'
+						activeColor: color
 
 						onClicked: sddm.powerOff()
 
@@ -336,7 +319,7 @@ Rectangle {
 						text: textConstants.reboot
 						width: parent.buttonWidth
 						color: '#ff4f14'
-						activeColor: '#ff4f14'
+						activeColor: color
 
 						onClicked: sddm.reboot()
 
@@ -345,34 +328,19 @@ Rectangle {
 					}
 				}
 			}
-
-			Rectangle {
-				id: clockContainer
-				width: mainBox.width
-				height: clock.height
-				color: 'transparent'
-				anchors.horizontalCenter: mainBox.horizontalCenter
-				anchors.top: mainBox.bottom
-				anchors.topMargin: mainColumn.spacing
-
-				CustomClock {
-					id: clock
-					anchors.centerIn: parent
-					color: '#cc555555' // ARGB
-					timeFormat: config.timeFormat
-					dateFormat: config.dateFormat
-					timeFont.pixelSize: parseInt(config.timeFontSize)
-					dateFont.pixelSize: parseInt(config.dateFontSize)
-				}
-			}
 		}
-	}
 
-	Component.onCompleted: {
-		if (name.text === '') {
-			name.focus = true
-		} else {
-			password.focus = true
+		// Clock
+		CustomClock {
+			width: loginBox.width
+			anchors.top: loginBox.bottom
+			anchors.topMargin: mainColumn.spacing
+			color: '#cc555555' // ARGB
+			timeFormat: config.timeFormat
+			dateFormat: config.dateFormat
+			timeFont.pixelSize: parseInt(config.timeFontSize)
+			dateFont.pixelSize: parseInt(config.dateFontSize)
 		}
+
 	}
 }

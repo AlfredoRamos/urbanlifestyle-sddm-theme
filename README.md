@@ -4,7 +4,7 @@ Urban LifeStyle SDDM Theme is licensed under [GNU GPL-3.0+](https://www.gnu.org/
 Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0pyns) was taken from [anime-pictures.net](https://anime-pictures.net/pictures/view_post/100739)
 
 ### Dependencies
-- Latest Qt 5.x version
+- Qt >= 5.6
 
 ### Preview
 ![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/sddm-urbanlifestyle-theme/master/urbanlifestyle/images/urbanlifestyle.jpg)
@@ -17,12 +17,12 @@ pacaur -Sa sddm-urbanlifestyle-theme
 ```
 ___
 **Other GNU/Linux distros**
-* Download the [latest release](https://github.com/AlfredoRamos/sddm-urbanlifestyle-theme/releases/latest).
-* Decompress the *.zip/*.tar.gz file.
-* Copy the `urbanlifestyle` folder to your SDDM theme directory, by default `/usr/share/sddm/themes`
+- Download the [latest release](https://github.com/AlfredoRamos/sddm-urbanlifestyle-theme/releases/latest).
+- Decompress the *.zip/*.tar.gz file.
+- Copy the `urbanlifestyle` folder to your SDDM theme directory, by default `/usr/share/sddm/themes`
 
 ### Usage
-* Open up your `/etc/sddm.conf` file and set `urbanlifestyle` as your current theme.
+- Open up your `/etc/sddm.conf` file and set `urbanlifestyle` as your current theme.
 
 ```shell
 [Theme]
