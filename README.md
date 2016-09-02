@@ -38,6 +38,3 @@ The avatar image size should be at least 90x90 px. For more information, refer t
 
 For the time and date format, please refer to the Qt QML docs.
 - [Date QML Type](https://doc.qt.io/qt-5/qml-qtqml-date.html)
-
-### Known issues
-- Password field has no focus (see [sddm/sddm#501](https://github.com/sddm/sddm/issues/501)). To fix this issue you will need to patch the theme (see [fix_password_focus.patch](https://aur.archlinux.org/cgit/aur.git/plain/fix_password_focus.patch?h=sddm-urbanlifestyle-theme)) or wait until [SDDM 0.14](https://github.com/sddm/sddm/milestones/0.14) is released. If you're running Arch Linux and installed the theme from the AUR, the theme has been already patched.
