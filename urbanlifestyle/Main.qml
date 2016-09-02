@@ -113,7 +113,7 @@ Rectangle {
 
 					onStatusChanged: {
 						if (status === Image.Error) {
-							source = config.avatarSource.arg('default')
+							source = config.avatarSource.arg('')
 						}
 
 					}
@@ -158,9 +158,7 @@ Rectangle {
 							}
 
 							Keys.onReleased: {
-								if (name.text !== '') {
-									avatar.source = config.avatarSource.arg(name.text)
-								}
+								avatar.source = config.avatarSource.arg(name.text)
 							}
 						}
 					}
@@ -342,5 +340,13 @@ Rectangle {
 			dateFont.pixelSize: parseInt(config.dateFontSize)
 		}
 
+	}
+
+	Component.onCompleted: {
+		if (name.text === '') {
+			name.focus = true
+		} else {
+			password.focus = true
+		}
 	}
 }
