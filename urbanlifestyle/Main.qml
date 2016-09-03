@@ -113,10 +113,6 @@ Rectangle {
 						source: icon
 						property string avatarPath: icon.toString().replace(/(\w*\.face\.icon)/, '')
 
-						Component.onCompleted: {
-							console.log(avatarPath)
-						}
-
 						onStatusChanged: {
 							if (status === Image.Error) {
 								source = '%1%2.face.icon'.arg(avatarPath).arg('')
