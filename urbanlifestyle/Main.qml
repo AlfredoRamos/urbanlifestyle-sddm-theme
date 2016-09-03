@@ -26,8 +26,6 @@ Rectangle {
 	width: 1024
 	height: 768
 	color: config.backgroundColor
-	property int minWidth: 300
-	property int minHeight: 280
 
 	TextConstants {
 		id: textConstants
@@ -68,9 +66,10 @@ Rectangle {
 		border.color: '#ababab'
 		border.width: 1
 		radius: 5
-		width: Math.max(container.minWidth + 10, mainColumn.implicitWidth + 30)
-		height: Math.min(container.minHeight + 10, mainColumn.implicitHeight + 30)
+		width: minWidth + 30
+		height: mainColumn.implicitHeight + 30
 		property int spacing: 5
+		property int minWidth: 300
 
 		Column {
 			id: mainColumn
@@ -78,20 +77,17 @@ Rectangle {
 			spacing: parent.spacing * 2
 
 			// Welcome message
-			Column {
+			Text {
 				width: parent.width
-				spacing: parent.spacing
-
-				Text {
-					anchors.horizontalCenter: parent.horizontalCenter
-					height: Text.implicitHeight
-					wrapMode: Text.WordWrap
-					elide: Text.ElideRight
-					color: '#333'
-					font.pixelSize: 15
-					font.bold: true
-					text: textConstants.welcomeText.arg(sddm.hostName)
-				}
+				height: Text.implicitHeight
+				text: textConstants.welcomeText.arg(sddm.hostName)
+				horizontalAlignment: Text.AlignHCenter
+				verticalAlignment: Text.AlignVCenter
+				wrapMode: Text.WordWrap
+				elide: Text.ElideRight
+				color: '#333'
+				font.pixelSize: 15
+				font.bold: true
 			}
 
 			// Avatar, name and password
@@ -99,29 +95,39 @@ Rectangle {
 				spacing: loginBox.spacing
 
 				// Avatar
-				Image {
-					id: avatar
+				ListView {
+					id: users
+					model: userModel
 					width: 90
 					height: 90
-					sourceSize.width: width
-					sourceSize.height: height
-					clip: true
-					smooth: true
-					asynchronous: true
-					fillMode: Image.PreserveAspectFit
-					source: config.avatarSource.arg(userModel.lastUser)
 
-					onStatusChanged: {
-						if (status === Image.Error) {
-							source = config.avatarSource.arg('')
+					delegate: Image {
+						width: parent.width
+						height: parent.height
+						sourceSize.width: parent.width
+						sourceSize.height: parent.height
+						clip: true
+						smooth: true
+						asynchronous: true
+						fillMode: Image.PreserveAspectFit
+						source: icon
+						property string avatarPath: icon.toString().replace(/(\w*\.face\.icon)/, '')
+
+						Component.onCompleted: {
+							console.log(avatarPath)
 						}
 
+						onStatusChanged: {
+							if (status === Image.Error) {
+								source = '%1%2.face.icon'.arg(avatarPath).arg('')
+							}
+						}
 					}
 				}
 
 				// Name and password
 				Column {
-					width: (container.minWidth - avatar.width) - parent.spacing
+					width: (loginBox.minWidth - users.width) - parent.spacing
 
 					// Name
 					Column {
@@ -158,7 +164,7 @@ Rectangle {
 							}
 
 							Keys.onReleased: {
-								avatar.source = config.avatarSource.arg(name.text)
+								users.currentItem.source = '%1%2.face.icon'.arg(users.currentItem.avatarPath).arg(name.text)
 							}
 						}
 					}
@@ -207,7 +213,7 @@ Rectangle {
 
 				// Session
 				Column {
-					width: (container.minWidth * 0.7) - (parent.spacing / 2)
+					width: (loginBox.minWidth * 0.7) - (parent.spacing / 2)
 					spacing: parent.spacing
 
 					Text {
@@ -228,15 +234,17 @@ Rectangle {
 						focusColor: '#85c92d'
 						hoverColor: focusColor
 						arrowIcon: config.angleDown
-
 						model: sessionModel
 						index: sessionModel.lastIndex
+
+						KeyNavigation.backtab: password
+						KeyNavigation.tab: keyboardLayout
 					}
 				}
 
 				// Keyboard layout
 				Column {
-					width: (container.minWidth * 0.3) - (parent.spacing / 2)
+					width: (loginBox.minWidth * 0.3) - (parent.spacing / 2)
 					spacing: parent.spacing
 
 					Text {
@@ -248,7 +256,7 @@ Rectangle {
 					}
 
 					LayoutBox {
-						id: layoutBox
+						id: keyboardLayout
 						width: parent.width
 						height: 30
 						color: '#99ffffff' // ARGB
@@ -257,73 +265,70 @@ Rectangle {
 						focusColor: '#31d8de'
 						hoverColor: focusColor
 						arrowIcon: config.angleDown
+
+						KeyNavigation.backtab: session
+						KeyNavigation.tab: loginButton
 					}
 
 				}
 			}
 
 			// Message
-			Column {
+			Text {
+				id: message
 				width: parent.width
-				spacing: parent.spacing
-
-				Text {
-					id: message
-					anchors.horizontalCenter: parent.horizontalCenter
-					text: textConstants.prompt
-					color: '#555'
-					font.pixelSize: 11
-				}
+				height: Text.implicitHeight
+				text: textConstants.prompt
+				horizontalAlignment: Text.AlignHCenter
+				verticalAlignment: Text.AlignVCenter
+				color: '#555'
+				font.pixelSize: 11
 			}
 
 			// Buttons
-			Column {
+			Row {
 				width: parent.width
-				spacing: parent.spacing
+				spacing: parent.spacing / 3
+				anchors.horizontalCenter: parent.horizontalCenter
+				property int buttonWidth: (width / 3) - (spacing / 3)
 
-				Row {
-					spacing: parent.spacing / 3
-					anchors.horizontalCenter: parent.horizontalCenter
-					property int buttonWidth: (parent.width / 3) - (spacing / 3)
+				Button {
+					id: loginButton
+					text: textConstants.login
+					width: parent.buttonWidth
+					color: '#08c'
+					activeColor: color
 
-					Button {
-						id: loginButton
-						text: textConstants.login
-						width: parent.buttonWidth
-						color: '#08c'
-						activeColor: color
+					onClicked: sddm.login(name.text, password.text, session.index)
 
-						onClicked: sddm.login(name.text, password.text, session.index)
+					KeyNavigation.backtab: keyboardLayout
+					KeyNavigation.tab: shutdownButton
+				}
 
-						KeyNavigation.backtab: layoutBox
-						KeyNavigation.tab: shutdownButton
-					}
+				Button {
+					id: shutdownButton
+					text: textConstants.shutdown
+					width: parent.buttonWidth
+					color: '#d11'
+					activeColor: color
 
-					Button {
-						id: shutdownButton
-						text: textConstants.shutdown
-						width: parent.buttonWidth
-						color: '#d11'
-						activeColor: color
+					onClicked: sddm.powerOff()
 
-						onClicked: sddm.powerOff()
+					KeyNavigation.backtab: loginButton
+					KeyNavigation.tab: rebootButton
+				}
 
-						KeyNavigation.backtab: loginButton
-						KeyNavigation.tab: rebootButton
-					}
+				Button {
+					id: rebootButton
+					text: textConstants.reboot
+					width: parent.buttonWidth
+					color: '#ff4f14'
+					activeColor: color
 
-					Button {
-						id: rebootButton
-						text: textConstants.reboot
-						width: parent.buttonWidth
-						color: '#ff4f14'
-						activeColor: color
+					onClicked: sddm.reboot()
 
-						onClicked: sddm.reboot()
-
-						KeyNavigation.backtab: shutdownButton
-						KeyNavigation.tab: name
-					}
+					KeyNavigation.backtab: shutdownButton
+					KeyNavigation.tab: name
 				}
 			}
 		}
