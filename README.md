@@ -33,7 +33,7 @@ Current=urbanlifestyle
 ### Configuration
 You can change some theme settings to fit your preferences, these values are located in the [theme.conf](https://github.com/AlfredoRamos/sddm-urbanlifestyle-theme/blob/master/urbanlifestyle/theme.conf) file.
 
-The avatar image size should be at least 90x90 px. For more information, refer to the Arch wiki.
+The avatar image size should be at least 100x100 px. For more information, refer to the Arch wiki.
 - [SDDM: Changing your avatar](https://wiki.archlinux.org/index.php/SDDM#Changing_your_avatar)
 
 For the time and date format, please refer to the Qt QML docs.

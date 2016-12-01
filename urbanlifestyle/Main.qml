@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.6
+import QtQuick.Layouts 1.2
 import SddmComponents 2.0
 
 import './components'
@@ -60,272 +61,260 @@ Rectangle {
 		id: loginBox
 		anchors.left: parent.left
 		anchors.top: parent.top
-		anchors.leftMargin: 70
 		anchors.topMargin: 70
-		color: 'transparent'
+		anchors.leftMargin: anchors.topMargin
+		width: 350
+		height: loginBoxLayout.implicitHeight + (loginBoxLayout.anchors.margins * 2)
+		color: '#33ffffff' // ARGB
 		border.color: '#ababab'
 		border.width: 1
-		radius: 5
-		width: minWidth + 30
-		height: mainColumn.implicitHeight + 30
-		property int spacing: 5
-		property int minWidth: 300
+		radius: 6
 
-		Column {
-			id: mainColumn
-			anchors.centerIn: parent
-			spacing: parent.spacing * 2
+		GridLayout {
+			id: loginBoxLayout
+			anchors.fill: parent
+			anchors.margins: 10
+			columns: 3
+			rows: 9
+			clip: true
 
 			// Welcome message
 			Text {
-				width: parent.width
-				height: Text.implicitHeight
+				color: '#333'
+				font.bold: true
+				font.pixelSize: 14
 				text: textConstants.welcomeText.arg(sddm.hostName)
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
 				wrapMode: Text.WordWrap
-				elide: Text.ElideRight
-				color: '#333'
-				font.pixelSize: 15
+
+				Layout.columnSpan: loginBoxLayout.columns
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+				Layout.bottomMargin: loginBoxLayout.anchors.margins / 2
+			}
+
+			// Avatar
+			ListView {
+				id: users
+				model: userModel
+
+				delegate: Image {
+					anchors.fill: parent
+					width: loginBox.width / 3
+					height: width
+					sourceSize.width: width
+					sourceSize.height: height
+					clip: true
+					smooth: true
+					asynchronous: true
+					fillMode: Image.PreserveAspectFit
+					source: icon
+					property string avatarPath: icon.toString().replace(/(\w*\.face\.icon)/, '')
+
+					onStatusChanged: {
+						if (status === Image.Error) {
+							source = config.avatar.arg(avatarPath).arg('')
+						}
+					}
+				}
+
+				Layout.rowSpan: 4
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+				Layout.topMargin: loginBoxLayout.anchors.margins / 4
+				Layout.bottomMargin: Layout.topMargin
+			}
+
+			// Name label
+			Text {
+				color: '#555'
 				font.bold: true
+				font.pixelSize: 12
+				text: textConstants.userName
+
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
 			}
 
-			// Avatar, name and password
-			Row {
-				spacing: loginBox.spacing
+			// Name field
+			TextBox {
+				id: name
+				color: '#99ffffff' // ARGB
+				font.bold: false
+				font.pixelSize: 15
+				text: userModel.lastUser
+				focusColor: '#69d6ac'
+				hoverColor: focusColor
 
-				// Avatar
-				ListView {
-					id: users
-					model: userModel
-					width: 90
-					height: 90
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
 
-					delegate: Image {
-						width: parent.width
-						height: parent.height
-						sourceSize.width: parent.width
-						sourceSize.height: parent.height
-						clip: true
-						smooth: true
-						asynchronous: true
-						fillMode: Image.PreserveAspectFit
-						source: icon
-						property string avatarPath: icon.toString().replace(/(\w*\.face\.icon)/, '')
+				KeyNavigation.backtab: rebootButton
+				KeyNavigation.tab: password
 
-						onStatusChanged: {
-							if (status === Image.Error) {
-								source = '%1%2.face.icon'.arg(avatarPath).arg('')
-							}
-						}
+				Keys.onPressed: {
+					if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+						sddm.login(name.text, password.text, session.index)
+						event.accepted = true
 					}
 				}
 
-				// Name and password
-				Column {
-					width: (loginBox.minWidth - users.width) - parent.spacing
+				Keys.onReleased: {
+					users.currentItem.source = config.avatar.arg(users.currentItem.avatarPath).arg(name.text)
+				}
+			}
 
-					// Name
-					Column {
-						width: parent.width
-						spacing: parent.spacing
+			// Password label
+			Text {
+				color: '#555'
+				font.bold: true
+				font.pixelSize: 12
+				text: textConstants.password
 
-						Text {
-							width: parent.width
-							text: textConstants.userName
-							color: '#555'
-							font.bold: true
-							font.pixelSize: 12
-						}
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
+			}
 
-						TextBox {
-							id: name
-							width: parent.width
-							height: 30
-							text: userModel.lastUser
-							color: '#99ffffff' // ARGB
-							font.bold: false
-							font.pixelSize: 14
-							focusColor: '#69d6ac'
-							hoverColor: focusColor
+			// Password field
+			PasswordBox {
+				id: password
+				color: '#99ffffff' // ARGB
+				font.bold: false
+				font.pixelSize: 14
+				focusColor: '#ebaf1d'
+				hoverColor: focusColor
 
-							KeyNavigation.backtab: rebootButton
-							KeyNavigation.tab: password
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
 
-							Keys.onPressed: {
-								if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-									sddm.login(name.text, password.text, session.index)
-									event.accepted = true
-								}
-							}
+				KeyNavigation.backtab: name
+				KeyNavigation.tab: session
 
-							Keys.onReleased: {
-								users.currentItem.source = '%1%2.face.icon'.arg(users.currentItem.avatarPath).arg(name.text)
-							}
-						}
-					}
-
-					// Password
-					Column {
-						width: parent.width
-						spacing: parent.spacing
-
-						Text {
-							width: parent.width
-							text: textConstants.password
-							color: '#555'
-							font.bold: true
-							font.pixelSize: 12
-						}
-
-						PasswordBox {
-							id: password
-							width: parent.width
-							height: 30
-							color: '#99ffffff' // ARGB
-							font.bold: false
-							font.pixelSize: 14
-							focusColor: '#ebaf1d'
-							hoverColor: focusColor
-
-							KeyNavigation.backtab: name
-							KeyNavigation.tab: session
-
-							Keys.onPressed: {
-								if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-									sddm.login(name.text, password.text, session.index)
-									event.accepted = true
-								}
-							}
-						}
+				Keys.onPressed: {
+					if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+						sddm.login(name.text, password.text, session.index)
+						event.accepted = true
 					}
 				}
 			}
 
-			// Session and keyboard layout
-			Row {
-				spacing: loginBox.spacing
+			// Session label
+			Text {
+				color: '#555'
+				font.bold: true
+				font.pixelSize: 12
+				text: textConstants.session
+
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
+			}
+
+			// Keyboard layout label
+			Text {
+				color: '#555'
+				font.bold: true
+				font.pixelSize: 12
+				text: textConstants.layout
+
+				Layout.fillWidth: true
+			}
+
+			// Session field
+			ComboBox {
+				id: session
+				color: '#99ffffff' // ARGB
+				focusColor: '#85c92d'
+				hoverColor: focusColor
+				arrowIcon: config.angleDown
+				model: sessionModel
+				index: sessionModel.lastIndex
 				z: 100
 
-				// Session
-				Column {
-					width: (loginBox.minWidth * 0.7) - (parent.spacing / 2)
-					spacing: parent.spacing
+				Layout.columnSpan: loginBoxLayout.columns - 1
+				Layout.fillWidth: true
 
-					Text {
-						width: parent.width
-						text: textConstants.session
-						color: '#555'
-						font.bold: true
-						font.pixelSize: 12
-					}
+				KeyNavigation.backtab: password
+				KeyNavigation.tab: keyboardLayout
+			}
 
-					ComboBox {
-						id: session
-						width: parent.width
-						height: 30
-						color: '#99ffffff' // ARGB
-						font.bold: false
-						font.pixelSize: 14
-						focusColor: '#85c92d'
-						hoverColor: focusColor
-						arrowIcon: config.angleDown
-						model: sessionModel
-						index: sessionModel.lastIndex
+			// Keyboard layout field
+			LayoutBox {
+				id: keyboardLayout
+				color: '#99ffffff' // ARGB
+				focusColor: '#31d8de'
+				hoverColor: focusColor
+				arrowIcon: config.angleDown
+				z: 100
 
-						KeyNavigation.backtab: password
-						KeyNavigation.tab: keyboardLayout
-					}
-				}
+				Layout.fillWidth: true
 
-				// Keyboard layout
-				Column {
-					width: (loginBox.minWidth * 0.3) - (parent.spacing / 2)
-					spacing: parent.spacing
-
-					Text {
-						width: parent.width
-						text: textConstants.layout
-						color: '#555'
-						font.bold: true
-						font.pixelSize: 12
-					}
-
-					LayoutBox {
-						id: keyboardLayout
-						width: parent.width
-						height: 30
-						color: '#99ffffff' // ARGB
-						font.bold: false
-						font.pixelSize: 14
-						focusColor: '#31d8de'
-						hoverColor: focusColor
-						arrowIcon: config.angleDown
-
-						KeyNavigation.backtab: session
-						KeyNavigation.tab: loginButton
-					}
-
-				}
+				KeyNavigation.backtab: session
+				KeyNavigation.tab: loginButton
 			}
 
 			// Message
 			Text {
 				id: message
-				width: parent.width
-				height: Text.implicitHeight
+				color: '#555'
+				font.pixelSize: 11
 				text: textConstants.prompt
 				horizontalAlignment: Text.AlignHCenter
 				verticalAlignment: Text.AlignVCenter
-				color: '#555'
-				font.pixelSize: 11
+
+				Layout.columnSpan: loginBoxLayout.columns
+				Layout.fillWidth: true
+				Layout.fillHeight: true
+				Layout.topMargin: loginBoxLayout.anchors.margins / 2
+				Layout.bottomMargin: Layout.topMargin
 			}
 
-			// Buttons
-			Row {
-				width: parent.width
-				spacing: parent.spacing / 3
-				anchors.horizontalCenter: parent.horizontalCenter
-				property int buttonWidth: (width / 3) - (spacing / 3)
+			// Login button
+			Button {
+				id: loginButton
+				color: '#08c'
+				font.pixelSize: 12
+				activeColor: color
+				text: textConstants.login
 
-				Button {
-					id: loginButton
-					text: textConstants.login
-					width: parent.buttonWidth
-					color: '#08c'
-					activeColor: color
+				onClicked: sddm.login(name.text, password.text, session.index)
 
-					onClicked: sddm.login(name.text, password.text, session.index)
+				Layout.fillWidth: true
 
-					KeyNavigation.backtab: keyboardLayout
-					KeyNavigation.tab: shutdownButton
-				}
+				KeyNavigation.backtab: keyboardLayout
+				KeyNavigation.tab: shutdownButton
+			}
 
-				Button {
-					id: shutdownButton
-					text: textConstants.shutdown
-					width: parent.buttonWidth
-					color: '#d11'
-					activeColor: color
+			// Shutdown button
+			Button {
+				id: shutdownButton
+				color: '#d11'
+				font.pixelSize: 12
+				activeColor: color
+				text: textConstants.shutdown
 
-					onClicked: sddm.powerOff()
+				onClicked: sddm.powerOff()
 
-					KeyNavigation.backtab: loginButton
-					KeyNavigation.tab: rebootButton
-				}
+				Layout.fillWidth: true
 
-				Button {
-					id: rebootButton
-					text: textConstants.reboot
-					width: parent.buttonWidth
-					color: '#ff4f14'
-					activeColor: color
+				KeyNavigation.backtab: loginButton
+				KeyNavigation.tab: rebootButton
+			}
 
-					onClicked: sddm.reboot()
+			// Reboot button
+			Button {
+				id: rebootButton
+				color: '#ff4f14'
+				font.pixelSize: 12
+				activeColor: color
+				text: textConstants.reboot
 
-					KeyNavigation.backtab: shutdownButton
-					KeyNavigation.tab: name
-				}
+				onClicked: sddm.reboot()
+
+				Layout.fillWidth: true
+
+				KeyNavigation.backtab: shutdownButton
+				KeyNavigation.tab: name
 			}
 		}
 
@@ -333,7 +322,7 @@ Rectangle {
 		CustomClock {
 			width: loginBox.width
 			anchors.top: loginBox.bottom
-			anchors.topMargin: mainColumn.spacing
+			anchors.topMargin: loginBoxLayout.anchors.margins
 			color: '#cc555555' // ARGB
 			timeFormat: config.timeFormat
 			dateFormat: config.dateFormat
