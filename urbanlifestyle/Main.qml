@@ -229,7 +229,7 @@ Rectangle {
 				arrowIcon: config.angleDown
 				model: sessionModel
 				index: sessionModel.lastIndex
-				z: 100
+				z: 1
 
 				Layout.columnSpan: loginBoxLayout.columns - 1
 				Layout.fillWidth: true
@@ -245,7 +245,7 @@ Rectangle {
 				focusColor: '#31d8de'
 				hoverColor: focusColor
 				arrowIcon: config.angleDown
-				z: 100
+				z: 1
 
 				Layout.fillWidth: true
 
