@@ -20,7 +20,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.2
 import SddmComponents 2.0
 
-import './components'
+import './components' as UrbanLifeStyleComponents
 
 Rectangle {
 	id: container
@@ -319,7 +319,7 @@ Rectangle {
 		}
 
 		// Clock
-		CustomClock {
+		UrbanLifeStyleComponents.CustomClock {
 			width: loginBox.width
 			anchors.top: loginBox.bottom
 			anchors.topMargin: loginBoxLayout.anchors.margins
