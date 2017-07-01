@@ -76,7 +76,7 @@ Rectangle {
 			anchors.margins: 10
 			columns: 3
 			rows: 9
-			clip: true
+			z: 1
 
 			// Welcome message
 			Text {
