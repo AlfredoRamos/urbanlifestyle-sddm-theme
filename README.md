@@ -19,7 +19,8 @@ ___
 **Other GNU/Linux distros**
 - Download the [latest release](https://github.com/AlfredoRamos/sddm-urbanlifestyle-theme/releases/latest).
 - Decompress the *.zip/*.tar.gz file.
-- Copy the `urbanlifestyle` folder to your SDDM theme directory, by default `/usr/share/sddm/themes`
+- Create the directory `/usr/share/sddm/themes/urbanlifestyle/`
+- Copy all files and directories into the previous directory.
 
 ### Usage
 - Open up your `/etc/sddm.conf` file and set `urbanlifestyle` as your current theme.
