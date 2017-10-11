@@ -18,4 +18,4 @@
 
 module UrbanLifeStyleComponents
 
-internal CustomClock 2.0 CustomClock.qml
+CustomClock 2.0 CustomClock.qml
