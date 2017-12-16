@@ -15,12 +15,23 @@ Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0p
 ### Installation
 **Arch Linux**
 
-It is available on the AUR, you can install it with `makepkg` or using an AUR helper. Example using [trizen](https://github.com/trizen/trizen):
+It is available on the AUR, you can install it with `makepkg` or using an AUR helper.
+
+Using `makepkg`:
+
+```shell
+git clone https://aur.archlinux.org/urbanlifestyle-sddm-theme.git
+cd urbanlifestyle-sddm-theme
+makepkg -Ccsi
+```
+___
+
+Using [trizen](https://github.com/trizen/trizen) AUR helper:
 
 ```shell
 trizen -S --aur urbanlifestyle-sddm-theme
 ```
-___
+
 **Other GNU/Linux distros**
 - Download the [latest release](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest)
 - Decompress the `*.zip` or `*.tar.gz` file
