@@ -13,10 +13,12 @@ Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0p
 ![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/images/urbanlifestyle.jpg)
 
 ### Installation
-**Arch Linux** (using [pacaur](https://wiki.archlinux.org/index.php/Pacaur))
+**Arch Linux**
+
+It is available on the AUR, you can install it with `makepkg` or using an AUR helper. Example using [trizen](https://github.com/trizen/trizen):
 
 ```shell
-pacaur -Sa urbanlifestyle-sddm-theme
+trizen -S --aur urbanlifestyle-sddm-theme
 ```
 ___
 **Other GNU/Linux distros**
@@ -25,13 +27,15 @@ ___
 - Copy all files and directories into `/usr/share/sddm/themes/urbanlifestyle/`
 
 ### Usage
-- Open up your `/etc/sddm.conf` file and set `urbanlifestyle` as your current theme
+- Open up your configuration file and set `urbanlifestyle` as your current theme
 
 ```shell
 [Theme]
 # Current theme name
 Current=urbanlifestyle
 ```
+
+For more info, please refer to [SDDM configuration](https://github.com/sddm/sddm/wiki/0.16.0-Release-Announcement#configuration).
 
 ### Configuration
 You can change some theme settings to fit your preferences, these values are located in the [theme.conf](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/blob/master/theme.conf) file.
