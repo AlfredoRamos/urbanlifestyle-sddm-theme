@@ -211,7 +211,7 @@ Rectangle {
 			}
 
 			// Session field
-			ComboBox {
+			UrbanLifeStyleComponents.ComboBox {
 				id: session
 				color: '#99ffffff' // ARGB
 				focusColor: '#85c92d'
@@ -229,7 +229,7 @@ Rectangle {
 			}
 
 			// Keyboard layout field
-			LayoutBox {
+			UrbanLifeStyleComponents.LayoutBox {
 				id: keyboardLayout
 				color: '#99ffffff' // ARGB
 				focusColor: '#31d8de'
