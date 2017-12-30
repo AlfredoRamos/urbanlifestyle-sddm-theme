@@ -9,7 +9,7 @@ arch:
   packages:
     - qt5-declarative
   script:
-    - qmllint $(find . -maxdepth 2 -type f -path '*.qml' | xargs)
+    - travis/run-tests.sh
 
 script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+  - travis/setup-arch-travis.sh "${TRAVIS_BUILD_DIR}"
