@@ -2,7 +2,7 @@
 
 A simple and colorful SDDM theme
 
-[![Build Status](https://img.shields.io/travis/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/AlfredoRamos/urbanlifestyle-sddm-theme) [![Latest stable version](https://img.shields.io/github/tag/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&maxAge=3600&label=stable)](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest) [![License](https://img.shields.io/github/license/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/AlfredoRamos/urbanlifestyle-sddm-theme) [![Latest stable version](https://img.shields.io/github/tag/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&maxAge=3600&label=stable)](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest) [![Latest AUR version](https://img.shields.io/aur/version/urbanlifestyle-sddm-theme.svg?style=flat-square&maxAge=3600&label=aur)](https://aur.archlinux.org/packages/urbanlifestyle-sddm-theme/) [![License](https://img.shields.io/github/license/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/LICENSE)
 
 Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0pyns) was taken from [anime-pictures.net](https://anime-pictures.net/pictures/view_post/100739)
 
