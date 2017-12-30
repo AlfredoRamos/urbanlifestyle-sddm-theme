@@ -12,4 +12,4 @@ arch:
     - travis/run-tests.sh
 
 script:
-  - travis/setup-arch-travis.sh "${TRAVIS_BUILD_DIR}"
+  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
