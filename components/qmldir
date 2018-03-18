@@ -8,6 +8,4 @@
 
 module UrbanLifeStyleComponents
 
-CustomClock	1.0.0	CustomClock.qml
-ComboBox	1.0.0	ComboBox.qml
-LayoutBox	1.0.0	LayoutBox.qml
+CustomClock 1.0 CustomClock.qml
