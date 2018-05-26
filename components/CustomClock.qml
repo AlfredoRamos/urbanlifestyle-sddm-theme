@@ -3,7 +3,7 @@
  *
  * @author Alfredo Ramos <alfredo.ramos@yandex.com>
  * @copyright 2016 Alfredo Ramos
- * @license GPL-3.0+
+ * @license GPL-3.0-or-later
  */
 
 import QtQuick 2.6

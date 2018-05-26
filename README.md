@@ -29,7 +29,7 @@ ___
 Using [trizen](https://github.com/trizen/trizen) AUR helper:
 
 ```shell
-trizen -S --aur urbanlifestyle-sddm-theme
+trizen -Sa urbanlifestyle-sddm-theme
 ```
 
 **Other GNU/Linux distros**

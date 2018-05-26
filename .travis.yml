@@ -1,6 +1,9 @@
 language: cpp
 sudo: required
 
+services:
+  - docker
+
 branches:
   only:
     - master
@@ -9,7 +12,7 @@ arch:
   packages:
     - qt5-declarative
   script:
-    - travis/run-tests.sh
+    - travis/run.sh
 
 script:
-  - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+  - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
