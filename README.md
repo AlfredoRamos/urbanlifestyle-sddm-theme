@@ -26,10 +26,10 @@ makepkg -Ccsi
 ```
 ___
 
-Using [trizen](https://github.com/trizen/trizen) AUR helper:
+Using [aurman](https://github.com/polygamma/aurman) AUR helper:
 
 ```shell
-trizen -Sa urbanlifestyle-sddm-theme
+aurman -S --aur urbanlifestyle-sddm-theme
 ```
 
 **Other GNU/Linux distros**
