@@ -24,13 +24,6 @@ git clone https://aur.archlinux.org/urbanlifestyle-sddm-theme.git
 cd urbanlifestyle-sddm-theme
 makepkg -Ccsi
 ```
-___
-
-Using [aurman](https://github.com/polygamma/aurman) AUR helper:
-
-```shell
-aurman -S --aur urbanlifestyle-sddm-theme
-```
 
 **Other GNU/Linux distros**
 - Download the [latest release](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest)
