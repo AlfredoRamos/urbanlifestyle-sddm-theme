@@ -1,18 +1,20 @@
 language: cpp
-sudo: required
-
-services:
-  - docker
+dist: xenial
 
 branches:
   only:
     - master
 
-arch:
-  packages:
-    - qt5-declarative
-  script:
-    - travis/run.sh
+before_install:
+  - chmod +x travis/*.sh
+
+addons:
+  apt:
+    update: true
+    packages:
+      - qt5-default
+      - qtdeclarative5-dev
+      - qtdeclarative5-dev-tools
 
 script:
-  - curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash
+  - source travis/script.sh
