@@ -6,7 +6,7 @@ branches:
     - master
 
 before_install:
-  - chmod +x travis/*.sh
+  - chmod +x .travis/*.sh
 
 addons:
   apt:
@@ -17,4 +17,4 @@ addons:
       - qtdeclarative5-dev-tools
 
 script:
-  - source travis/script.sh
+  - source .travis/script.sh
