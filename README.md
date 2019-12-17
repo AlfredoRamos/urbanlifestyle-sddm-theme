@@ -2,7 +2,7 @@
 
 A simple and colorful SDDM theme
 
-[![Build Status](https://img.shields.io/travis/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://travis-ci.org/AlfredoRamos/urbanlifestyle-sddm-theme)
+[![Build Status](https://img.shields.io/travis/com/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://travis-ci.org/AlfredoRamos/urbanlifestyle-sddm-theme)
 [![Latest stable version](https://img.shields.io/github/tag/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&label=stable)](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest)
 [![Latest AUR version](https://img.shields.io/aur/version/urbanlifestyle-sddm-theme.svg?style=flat-square&label=aur)](https://aur.archlinux.org/packages/urbanlifestyle-sddm-theme/)
 [![License](https://img.shields.io/github/license/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/LICENSE)
