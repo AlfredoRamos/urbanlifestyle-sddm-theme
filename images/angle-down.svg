@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
-	<g transform="translate(27.2 27.448) scale(.64532)" fill-rule="evenodd">
-		<rect transform="rotate(-45)" ry="10.668" rx="9.267" y="115.539" x="-30.788" height="20" width="104.237"/>
-		<rect transform="rotate(-135)" ry="10.668" rx="9.267" y="-30.788" x="-135.539" height="20" width="104.237"/>
-	</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><g fill-rule="evenodd" transform="translate(27.2 27.448) scale(.64532)"><rect width="104.237" height="20" x="-30.788" y="115.539" rx="9.267" ry="10.668" transform="rotate(-45)"/><rect width="104.237" height="20" x="-135.539" y="-30.788" rx="9.267" ry="10.668" transform="rotate(-135)"/></g></svg>
