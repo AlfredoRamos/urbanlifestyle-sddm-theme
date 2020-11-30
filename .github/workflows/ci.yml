@@ -1,0 +1,25 @@
+name: GitHub Actions CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@master
+      - name: Install dependencies
+        run: |
+          sudo apt -y install qt5-default qtdeclarative5-dev qtdeclarative5-dev-tools
+      - name: Test QML
+        run: |
+          qmllint --version
+          qmllint $(find . -maxdepth 2 -type f -path '*.qml' | xargs)
