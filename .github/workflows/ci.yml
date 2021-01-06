@@ -1,4 +1,4 @@
-name: GitHub Actions CI
+name: CI
 
 on:
   push:
@@ -16,9 +16,10 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@master
+
       - name: Install dependencies
-        run: |
-          sudo apt -y install qt5-default qtdeclarative5-dev qtdeclarative5-dev-tools
+        run: sudo apt -y install qt5-default qtdeclarative5-dev qtdeclarative5-dev-tools
+
       - name: Test QML
         run: |
           qmllint --version
