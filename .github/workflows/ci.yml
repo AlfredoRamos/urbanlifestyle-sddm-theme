@@ -1,4 +1,4 @@
-name: GitHub Actions CI
+name: CI
 
 on:
   push:
@@ -11,14 +11,17 @@ on:
       - reopened
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@master
+
       - name: Install dependencies
         run: |
+          sudo apt update
           sudo apt -y install qt5-default qtdeclarative5-dev qtdeclarative5-dev-tools
+
       - name: Test QML
         run: |
           qmllint --version
