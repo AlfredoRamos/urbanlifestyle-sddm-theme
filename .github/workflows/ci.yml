@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt -y install qt5-default qtdeclarative5-dev qtdeclarative5-dev-tools
+          sudo apt -y install qtdeclarative5-dev qtdeclarative5-dev-tools
 
       - name: Test QML
         run: |
