@@ -2,7 +2,7 @@
  * Urban LifeStyle SDDM Theme
  *
  * @author Alfredo Ramos <alfredo.ramos@proton.me>
- * @copyright 2016 Alfredo Ramos
+ * @copyright 2015 Alfredo Ramos
  * @license GPL-3.0-or-later
  */
 
