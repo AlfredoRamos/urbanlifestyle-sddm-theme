@@ -6,7 +6,7 @@ A simple and colorful SDDM theme
 [![Latest stable version](https://img.shields.io/github/tag/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square&label=stable)](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/releases/latest)
 [![Latest AUR version](https://img.shields.io/aur/version/urbanlifestyle-sddm-theme.svg?style=flat-square&label=aur)](https://aur.archlinux.org/packages/urbanlifestyle-sddm-theme/)
 [![Code Quality](https://img.shields.io/codacy/grade/2a450a59b8bf42639cad1e81f81a4c8e.svg?style=flat-square)](https://app.codacy.com/manual/AlfredoRamos/urbanlifestyle-sddm-theme/dashboard)
-[![License](https://img.shields.io/github/license/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/LICENSE)
+[![License](https://img.shields.io/github/license/AlfredoRamos/urbanlifestyle-sddm-theme.svg?style=flat-square)](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/main/LICENSE)
 
 Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0pyns) was taken from [anime-pictures.net](https://anime-pictures.net/pictures/view_post/100739)
 
@@ -14,7 +14,7 @@ Background image *Urban LifeStyle* by [snyp](http://r0pyns.deviantart.com/) (r0p
 - Qt >= 5.6
 
 ### Preview
-![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/master/images/urbanlifestyle.jpg)
+![Urban LifeStyle](https://raw.githubusercontent.com/AlfredoRamos/urbanlifestyle-sddm-theme/main/images/urbanlifestyle.jpg)
 
 ### Installation
 **Arch Linux**
@@ -46,7 +46,7 @@ Current=urbanlifestyle
 For more info, please refer to [SDDM configuration](https://github.com/sddm/sddm/wiki/0.16.0-Release-Announcement#configuration).
 
 ### Configuration
-You can change some theme settings to fit your preferences, these values are located in the [theme.conf](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/blob/master/theme.conf) file.
+You can change some theme settings to fit your preferences, these values are located in the [theme.conf](https://github.com/AlfredoRamos/urbanlifestyle-sddm-theme/blob/main/theme.conf) file.
 
 The avatar image size should be at least 100x100 px. For more information, refer to the Arch wiki.
 - [SDDM: User icon (avatar)](https://wiki.archlinux.org/index.php/SDDM#User_icon_(avatar))
